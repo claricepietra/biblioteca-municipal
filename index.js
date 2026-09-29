@@ -59,7 +59,9 @@ async function inicarSistema() {
     const valorMulta = item.calcularMulta(diasDeAtraso);
     console.log(`\nValor total da multa: R$ ${valorMulta.toFixed(2)}`);
 
+    leitor.validarIdadeLeitor(idade)
+
     rl.close();
 }
 
-inicarSistema();
+inicarSistema();   
