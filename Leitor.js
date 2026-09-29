@@ -1,16 +1,17 @@
 export class Leitor {
-    #Idade;
-    constructor(Nome, Idade){
-        this.Idade = Idade;
-        this.Nome = Nome;
+    #idade;
+
+    constructor(nome, idade) {
+        this.nome = nome;
+        this.validarIdadeLeitor(idade);   
     }
-    get Idade(){ return this.#Idade; }
-    set Idade(idadeLeitor){
-        if(idadeLeitor < 12){
-            console.log("Leitor menor de 12 anos precisa do responsável para o cadastro");
-            throw new Error("Cadastro não permitido: leitor menor de 12 anos.");
-            return;
+
+    get idade() { return this.#idade; }
+
+    validarIdadeLeitor(idadeLeitor) {
+        if (typeof idadeLeitor !== 'number' || isNaN(idadeLeitor)) {
+            throw new Error("ERR_TIPO_IDADE_INVALIDO");
         }
-        this.#Idade = idadeLeitor;
+        this.#idade = idadeLeitor;
     }
 }

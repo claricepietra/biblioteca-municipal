@@ -11,9 +11,11 @@ export class ItemBase {
     }
     get anoPublicacao() { return this.#anoPublicacao; }
     set anoPublicacao(ano) {
+        if (typeof ano !== 'number' || isNaN(ano)) {
+            throw new Error("ERR_TIPO_ANO_INVALIDO");
+        }
         if (ano < 1000 || ano > 2026) {
-            console.log("Ano de publicação inválido");
-            return;
+            throw new Error("ERR_ANO_FORA_DO_LIMITE"); 
         }
         this.#anoPublicacao = ano;
     }

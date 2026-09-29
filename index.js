@@ -1,7 +1,8 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { LivroFisico, Ebook } from './TiposDeItens.js';
-import { Leitor } from './Leitor.js';
+import { AtendimentoBiblioteca } from './AtendimentoBiblioteca.js';
+
 
 const rl = readline.createInterface({ input, output });
 
@@ -9,11 +10,14 @@ async function inicarSistema() {
 
     console.log("=== SISTEMA DA BIBLIOTECA MUNICIPAL ===");
 
-    const Idade = await rl.question("Digite sua idade: ");
-    const Nome = await rl.question("Digite seu nome: ");
-
-    const idadeConvertida = parseInt(Idade);
-    const leitor = new Leitor(Nome, idadeConvertida);
+    const idade = parseInt(await rl.question("Digite sua idade: "),10 );
+    const nome = await rl.question("Digite seu nome: ");
+    const atendimento = new AtendimentoBiblioteca();
+    const leitor = atendimento.CadastrarLeitor(nome, idade);
+    if (!leitor) {
+       rl.close();
+        return;
+    }
 
     console.log("\nSelecione qual item você deseja cadastrar: ");
     console.log("1 - Livro Fisico");
@@ -59,8 +63,7 @@ async function inicarSistema() {
     const valorMulta = item.calcularMulta(diasDeAtraso);
     console.log(`\nValor total da multa: R$ ${valorMulta.toFixed(2)}`);
 
-    leitor.validarIdadeLeitor(idade)
-
+      
     rl.close();
 }
 
