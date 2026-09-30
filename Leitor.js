@@ -4,6 +4,7 @@ export class Leitor {
     constructor(nome, idade) {
         this.nome = nome;
         this.validarIdadeLeitor(idade);   
+      
     }
 
     get idade() { return this.#idade; }
